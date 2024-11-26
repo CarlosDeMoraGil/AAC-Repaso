@@ -4,7 +4,9 @@ import android.content.Context
 import com.google.gson.Gson
 import edu.iesam.aad_repaso.R
 import edu.iesam.aad_repaso.feature.domain.Movie
+import org.koin.core.annotation.Single
 
+@Single
 class MovieXmlLocalDataSource(private val context: Context) {
 
     private val sharedPref = context.getSharedPreferences(
@@ -14,6 +16,12 @@ class MovieXmlLocalDataSource(private val context: Context) {
 
     private val gson = Gson()
     private val editor = sharedPref.edit()
+
+    val movies = listOf(
+        Movie("1", "Wicked", "160"),
+        Movie("2", "White Chicks", "109"),
+        Movie("3", "Excuse me, i love you", "97")
+    )
 
     fun save(movie: Movie){
         editor.apply{
@@ -25,7 +33,7 @@ class MovieXmlLocalDataSource(private val context: Context) {
     
     fun saveAll(movieList: List<Movie>){
         editor.apply{
-            movieList.forEach { 
+            movieList.forEach {
                 putString(it.id, gson.toJson(it))
             }
             apply()

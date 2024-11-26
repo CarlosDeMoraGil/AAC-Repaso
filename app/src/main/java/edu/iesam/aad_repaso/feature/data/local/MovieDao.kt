@@ -11,6 +11,9 @@ interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun save(movie: MovieEntity)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun saveAll(vararg movie: MovieEntity)
+
     @Query("SELECT * FROM $MOVIE_TABLE")
     fun findAll(): List<MovieEntity>
 

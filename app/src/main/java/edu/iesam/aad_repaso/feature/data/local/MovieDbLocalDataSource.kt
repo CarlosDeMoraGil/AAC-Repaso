@@ -4,11 +4,15 @@ import edu.iesam.aad_repaso.feature.domain.Movie
 import org.koin.core.annotation.Single
 
 @Single
-class MovieLocalDbDataSource(private val dao: MovieDao) {
+class MovieDbLocalDataSource(private val dao: MovieDao) {
 
-    fun save(movie: Movie) {
-        dao.save(movie.toEntity())
+    fun saveAll(movie: List<Movie>) {
+        movie.forEach {
+            dao.saveAll(it.toEntity())
+        }
+
     }
+
 
     fun findAll(): List<Movie> {
         val moviesEntity = dao.findAll()
